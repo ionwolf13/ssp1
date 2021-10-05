@@ -1,0 +1,39 @@
+.cont{
+    display: flex;
+    flex-direction: column;
+} 
+
+#header{
+    background-color: cornflowerblue;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 25px;
+    height: 20%;
+    width: auto;
+}
+
+.nav-cont{
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+}
+
+#mn-body{
+    background-image: url('./warehouse-building-0.jpeg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: blue;
+    height: 60%;
+    width: auto;
+}
+
+#footer{
+    height: 10vh;
+    width: auto;
+}
+.mn-cont{
+    justify-content: center;
+    align-items: center;
+}
