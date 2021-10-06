@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
-// app.use('/comp', require('./routes/subs/company.js'))
+app.use('/sign', require('./routes/subs/signs.js'))
 
 app.get(['/home','/'], (req, res) => {
     res.sendFile(resolve('public', 'views', 'index.html'))
@@ -17,14 +17,6 @@ app.get(['/home','/'], (req, res) => {
 
 app.get('/about', (req, res) => {
     res.sendFile(resolve('public', 'views', 'about.html'))
-})
-
-app.get('/signIn', (req, res) => {
-    res.sendFile(resolve('public', 'views', 'signIn.html'))
-})
-
-app.get('/signUp', (req, res) => {
-    res.sendFile(resolve('public', 'views', 'signUp.html'))
 })
 
 app.get('*', (req, res) => {
