@@ -44,12 +44,14 @@ html{
 }
 #mn-bd-sec1{
     background-color: darkgray;
+    padding: 25px;
 }
 
 #mn-bd-sec2{
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
+    padding: 25px;
 }
 
 #sec2-sec1{
