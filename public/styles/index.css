@@ -1,6 +1,19 @@
+html{
+    height: 100%;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
 .cont{
+    background: no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: auto;
 } 
 
 #header{
@@ -8,6 +21,7 @@
     flex-direction: row;
     justify-content: flex-start;
     column-gap: 25px;
+    padding: 25px;
     height: 20%;
     width: auto;
 }
@@ -21,19 +35,74 @@
 }
 
 #mn-body{
-    background-image: url('./warehouse-building-0.jpeg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: blue;
     height: 60%;
-    width: auto;
+    width: 100%;
 }
 
-#footer{
-    height: 10vh;
-    width: auto;
+#p1{
+    padding: 50px;
 }
+#mn-bd-sec1{
+    background-color: darkgray;
+}
+
+#mn-bd-sec2{
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+#sec2-sec1{
+    justify-content: flex-start;
+    width: 50%;
+}
+
+#sec2-sec2{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    row-gap: 50px;
+}
+
+#sc2-mini{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .mn-cont{
     justify-content: center;
     align-items: center;
+}
+
+#footer{
+    background-color: darkgray;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+    padding: 25px;
+}
+
+#ftr-sec1{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 100px;
+}
+
+#ftr-sc1-sc2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#mini-sec{
+    display: flex;justify-content: flex-start;
+    column-gap: 20%;
 }
