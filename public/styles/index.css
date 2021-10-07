@@ -48,8 +48,10 @@ html{
 }
 
 #mn-bd-sec2{
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     width: 100%;
     padding: 25px;
 }
@@ -57,6 +59,7 @@ html{
 #sec2-sec1{
     justify-content: flex-start;
     width: 50%;
+    padding: 25px;
 }
 
 #sec2-sec2{
@@ -64,13 +67,26 @@ html{
     display: flex;
     flex-direction: row;
     width: 30%;
+    column-gap: 50px;
     row-gap: 50px;
+    padding: 25px;
 }
 
 #sc2-mini{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    column-gap: 25px;
+}
+
+#sc2-mini2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
 }
 
 .mn-cont{
@@ -79,7 +95,8 @@ html{
 }
 
 #footer{
-    background-color: darkgray;
+    background-color: #001d3d;
+    color: white;
     justify-content: center;
     align-items: center;
     height: 100%;
