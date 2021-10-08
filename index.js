@@ -10,6 +10,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 app.use('/sign', require('./routes/subs/signs.js'))
+app.use('/profile', require('./routes/subs/user.js'))
 
 app.get(['/home','/'], (req, res) => {
     res.sendFile(resolve('public', 'views', 'index.html'))
