@@ -25,12 +25,9 @@ const userSchema = new Schema ({
     company: [{
         name: String,
         state: String,
-        city: String,
         smallComp: [{
                 name: String,
                 state: String,
-                city: String,
-                material: String,
                 warehouse: [{
                     name: String,
                     state: String,

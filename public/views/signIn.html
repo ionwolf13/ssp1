@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='../styles/index.css' >
+        
         <title>Document</title>
     </head>
     <body>
@@ -44,17 +45,17 @@
                             <img src='' alt='sign in picture logo'>
                         </div>
                         <div>
-                            <form method='POST' action='/sign/in'>
+                            <form id='signin-form' method='POST' action='/sign/in'>
                                 <div>
                                     <label>Username: </label>
-                                    <input type='text' name='username'>
+                                    <input id='inpt-user' type='text' name='username'>
                                 </div>
                                 <div>
                                     <label>Password: </label>
-                                    <input type='password' name='password'>
+                                    <input id='inpt-pwd' type='password' name='password'>
                                 </div>
                                 <div>
-                                    <input type='submit' value='submit'>
+                                    <input id='inpt-bttn' type='submit' value='submit'>
                                 </div>
                             </form>
                         </div> 
@@ -92,4 +93,5 @@
             </div>
         </div>
     </body>
+    <script src='../scripts/localStg.js'></script>
 </html>

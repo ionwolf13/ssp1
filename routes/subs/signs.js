@@ -8,10 +8,13 @@ router.get('/in', (req, res) => {
     res.sendFile(resolve('public', 'views', 'signIn.html'))
 })
 
-router.post('/in', (req, res) => {
+router.post('/in', async (req, res) => {
     try{
-        const user = authUser(req.body);
+        const user = await authUser(req.body);
+        if(user == null) throw 'No Account Was found.';
+        res.sendFile(resolve('public', 'views', 'data', 'profile.html'))
     }catch(err){
+        res.sendFile(resolve('public', 'views', 'signIn.html'))
         console.log(`Sign In Error: ${err}: ${err.message}`)
     }
 })
@@ -20,13 +23,13 @@ router.get('/up', (req, res) => {
     res.sendFile(resolve('public', 'views', 'signUp.html'))
 })
 
-router.post('/up', (req, res) => {
-    // console.log('This is from the Sign Up Form')
-    // console.log(req.body)
+router.post('/up', async (req, res) => {
     try{
-        const user = createUser(req.body)
-        res.sendFile(resolve('public', 'views', 'data', 'home.html'))
+        const user = await createUser(req.body)
+        if(user == null) throw 'Cannot create Account.';
+        res.sendFile(resolve('public', 'views', 'data', 'profile.html'))
     }catch(err){
+        res.sendFile(resolve('public', 'views', 'signUp.html'))
         console.log(`Sign Up Error, ${err}: ${err.message}`)
     }
 })
