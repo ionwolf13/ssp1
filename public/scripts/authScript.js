@@ -1,33 +1,29 @@
 const addProfile = () => {
-    console.log('THIS COMING FROM THE AUTHSCRIPT')
     const xhr = new XMLHttpRequest();
     console.log(localStorage)
     xhr.onload = function() {
-        const user = JSON.parse(xhr.response);
-        console.log(user)
+        const users = JSON.parse(xhr.response);
         const header = document.getElementById('profile-hdr')
-        const companyCont = document.getElementById('company')
+        const profileInfo = document.getElementById('profile-info')
+        const currentCompaniesCont = document.getElementById('current-companies')
         const smllCompCont = document.getElementById('small-company')
         const warehouseCont = document.getElementById('warehouse')
         if(xhr.status < 400){
-            let currentUser = {}
-            for(obj of user){
-                if(localStorage.currentUser === obj.username) currentUser = obj
+            let currentUser = null
+            for(user of users){
+                if(localStorage.currentUser == user.username) {
+                    currentUser = user
+                }
             }
             {
-                console.log('STATUS LESS THAN 400!!!!!')
-                header.innerHTML = `Welcome ${obj.firstName[0].toUpperCase() + obj.firstName.slice(1,obj.firstName.length)} ${obj.lastName[0].toUpperCase() + obj.lastName.slice(1,obj.lastName.length)}`
-                const div = document.createElement("div")
-                div.innerHTML = `
-                    <form>
-                        <label for='companyName'> Company: </label>
-                        <input type='text' name='companyName'></input>
-                        <label for='state'>State: </label>
-                        <input type='text' name='state'></input>
-                        <input type='submit' value='submit'></input>
-                    </form>
-                    `
-                companyCont.appendChild(div)
+                console.log(currentUser, "THIS CURRENT USER IN STORAGE")
+                header.innerHTML = `Welcome ${currentUser.firstName[0].toUpperCase() + currentUser.firstName.slice(1,currentUser.firstName.length)} ${currentUser.lastName[0].toUpperCase() + currentUser.lastName.slice(1,currentUser.lastName.length)}`
+                profileInfo.innerHTML = `
+                <strong> Profile Info: </strong><br></br>
+                Username: ${currentUser.username}<br></br>
+                Email: ${currentUser.email}<br></br>
+                `
+                getCompanies(currentUser.company, currentCompaniesCont)
             }
         }
     }
@@ -35,6 +31,37 @@ const addProfile = () => {
     xhr.send();
 }
 
+const getCompanies = (compArray, container) => {
+    const bigCompany = document.getElementsByClassName('bigCompany')
+    if(compArray.length !== 0){
+        for(comp of compArray){
+            bigCompany.value = comp.name
+            const div = document.createElement('div')
+            div.innerHTML = `
+            <p>
+                Name: ${comp.name} <br></br>
+                State: ${comp.state}<br></br>
+            </p>
+            `
+            container.appendChild(div)
+        }
+    }
+}
+
+
 window.addEventListener('DOMContentLoaded', () => {
     addProfile();
+    const logout = document.getElementById('logout-link')
+    const hidden = document.getElementsByClassName('currentUser')
+    hidden[0].value = localStorage.currentUser
+    hidden[1].value = localStorage.currentUser
+    hidden[2].value = localStorage.currentUser
+    logout.addEventListener('click', () => {
+        console.log('LOG ME OUT')
+        localStorage.setItem('lgd', false)
+        localStorage.setItem('currentUser', null)
+    })
 })
+
+
+
