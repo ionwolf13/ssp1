@@ -44,25 +44,29 @@
                             <img src='' alt='sign in picture logo'>
                         </div>
                         <div>
-                            <form method='POST' action='/sign/up'>
+                            <form id='sgn-form' method='POST' action='/sign/up'>
                                 <div>
-                                    <label for='compname'>Company Name: </label>
-                                    <input type='text' name='compname'>
+                                    <label for='firstName'>First Name: </label>
+                                    <input type='text' name='firstName'>
+                                </div>
+                                <div>
+                                    <label for='lastName'>Last Name: </label>
+                                    <input type='text' name='lastName'>
                                 </div>
                                 <div>
                                     <label for='email'>Email: </label>
-                                    <input type='password' name='email'>
+                                    <input type='text' name='email'>
                                 </div>
                                 <div>
                                     <label for='username'>Username: </label>
-                                    <input type='text' name='username'>
+                                    <input id='sgn-up-inpt' type='text' name='username'>
                                 </div>
                                 <div>
                                     <label for='password'>Password: </label>
-                                    <input type='password' name='username'>
+                                    <input type='password' name='password'>
                                 </div>
                                 <div>
-                                    <input type='submit' value='submit'>
+                                    <input id='bttn' type='submit' value='submit'>
                                 </div>
                             </form>
                         </div> 
@@ -100,4 +104,5 @@
             </div>
         </div>
     </body>
+    <script src='../scripts/sgnUp.js'></script>
 </html>
