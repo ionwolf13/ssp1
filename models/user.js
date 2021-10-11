@@ -32,7 +32,9 @@ const userSchema = new Schema ({
                     name: String,
                     state: String,
                     city: String,
-                    inventory: String,
+                    inventory: [{
+                        item: String
+                    }],
                     quantity: Number,
                     capacity: Number,
                     limit: Boolean

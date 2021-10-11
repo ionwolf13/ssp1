@@ -16,10 +16,11 @@
                         <img src='../pictures/logo.jpeg' alt='Company Logo' height='100'/>
                         <h1 class='main-h1'> SK Warehouse </h1>
                         <nav class='nav-cont cont'> 
-                            <a class='nav-lnk' href='/profile'> Profile </a>
-                            <a class='nav-lnk'href='/company' > Company</a>
-                            <a class='nav-lnk' href='/'> Sign In </a>
-                            <a class='nav-lnk' href='/sign/up'> Sign Up </a>
+                            <!-- <a class='nav-lnk' href='/profile'> Profile </a> -->
+                            <a class='nav-lnk'href='#company' > Company</a>
+                            <a class='nav-lnk'href='#small-company' > Small Companies</a>
+                            <a class='nav-lnk'href='#warehouse' > Warehouses</a>
+                            <a class='nav-lnk' id='logout-link' href='/home' > Logout </a>
                         </nav>
                     
                 </header>
@@ -29,7 +30,8 @@
                             <h1 class='bd-itm' id='profile-hdr'>
                                 Welcome Username
                             </h1>
-                            
+                            <img src='' alt='Profile Image'/>
+                            <p id='profile-info'></p>
                         </div>
                     </div>
                     <div class='cont' id='mn-bd-sec2'>
@@ -38,16 +40,102 @@
                             <h1> 
                                 Company
                             </h1>
+                            <div id='current-companies'>
+                                <h2> Current Company:</h2>
+                            </div>
+                            <div>   
+                                <p>Add Company</p>
+                                <form method='POST', action='/profile'>
+                                    <div>
+                                        <label for='companyName'> Company: </label>
+                                        <input type='text' name='companyName'></input>
+                                    </div>
+                                    <div>
+                                        <label for='state'>State: </label>
+                                        <input type='text' name='state'></input>
+                                    </div>
+                                    <div>
+                                        <input type='hidden' name="postId" value="001"></input>
+                                        <input class='currentUser' type='hidden' name='currentUser' value="">
+                                        <input type='submit' value='submit'></input>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div id='small-company'>
                             <h1> 
-                                Small Company
+                                Small Companies
                             </h1>
+                            <div>
+                                <h2> Current Companies:</h2>
+                            </div>
+                            <div> 
+                                <p>Add Small Company</p>
+                                <form method='POST', action='/profile'>
+                                    <div>
+                                        <label for='smallCompany'> Company: </label>
+                                        <input type='text' name='smallsmallCompany'></input>
+                                    </div>
+                                    <div>
+                                        <label for='state'>State: </label>
+                                        <input type='text' name='state'></input>
+                                    </div>
+                                    <div>
+                                        <input type='hidden' name="postId" value="002"></input>
+                                        <input class='bigCompany' type='hidden' name='bigCompany' value="">
+                                        <input class='currentUser' type='hidden' name='currentUser' value="">
+                                        <input type='submit' value='submit'></input>
+                                    </div>
+                                </form>
+                            </div>
                         </div> 
                         <div id='warehouse'>
                             <h1> 
                                 Warehouse
                             </h1>
+                            <div>
+                                <h2> Current Warehouses:</h2>
+                            </div>
+                            <div>
+                                <p>Add Warehouse</p>
+                                <form method='POST', action='/profile'>
+                                    <div>
+                                        <label for='warehouseName'> Warehouse: </label>
+                                        <input type='text' name='warehouseName'></input>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for='state'>State: </label>
+                                        <input type='text' name='state'></input>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for='city'> City: </label>
+                                        <input type='text' name='city'></input>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for='inventory'>Inventory: </label>
+                                        <input type='text' name='inventory'></input>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for='quantity'> Quantity: </label>
+                                        <input type='text' name='quantity'></input>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for='capacity'>Capacity: </label>
+                                        <input type='text' name='capacity'></input>
+                                    </div>
+                                    
+                                    <div>
+                                        <input type='hidden' name="postId" value="003"></input>
+                                        <input class='currentUser' type='hidden' name='currentUser' value="">
+                                        <input type='submit' value='submit'></input>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
 
                     </div>

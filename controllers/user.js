@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const User = require('../models/user.js')
 require('dotenv').config();
 
+/******************************************************/
+//Auth
+/******************************************************/
+
 const authUser = async ({username, password}) => {
     try{
         await mongoose.connect(process.env.SSP1_URL);
@@ -14,6 +18,10 @@ const authUser = async ({username, password}) => {
         console.error(`${err}: ${err.message}`)
     }
 }
+
+/******************************************************/
+//User
+/******************************************************/
 
 const createUser = async ({ firstName, lastName, email, username, password}) => {
     console.log('we are in the create User part')
@@ -65,4 +73,52 @@ const findUser = async (username) => {
     }
 }
 
-module.exports = { authUser, createUser, updateUser, deleteUser, findUser }
+/******************************************************/
+//Company
+/******************************************************/
+
+const updateCompany = async ({ currentUser ,companyName, state }) => {
+    try{
+        await mongoose.connect(process.env.SSP1_URL);
+        const user = await User.findOneAndUpdate({username: currentUser}, { $push: {company: {name: companyName, state: state}}})
+        console.log(user, "Updated USER")
+        console.log('Connection to Atlas Successful!')
+        mongoose.connection.close();
+    }catch(err){
+        mongoose.connection.close();
+            console.error(`${err}: ${err.message}`)
+    }
+}
+
+/******************************************************/
+//Small Company
+/******************************************************/
+
+const updateSmall = async ({ bigCompany, smallCompanyName, state, currentUser}) => {
+    try{
+        console.log(smallCompanyName, state, currentUser, 'INSIDE THE SMALL UPDATE')
+        await mongoose.connect(process.env.SSP1_URL);
+        const user = await User.findOneAndUpdate({username: currentUser, company: {name: bigCompany}}, { $push: {'company.smallComp': {name: companyName, state: state}}})
+        console.log('Connection to Atlas Successful!')
+        mongoose.connection.close();
+    }catch(err){
+        mongoose.connection.close();
+            console.error(`${err}: ${err.message}`)
+    }
+}
+
+/******************************************************/
+//Warehouse
+/******************************************************/
+
+const updateWare = async () => {
+    try{
+        await mongoose.connect(process.env.SSP1_URL);
+        console.log('Connection to Atlas Successful!')
+        mongoose.connection.close();
+    }catch(err){
+        mongoose.connection.close();
+            console.error(`${err}: ${err.message}`)
+    }
+}
+module.exports = { authUser, createUser, updateUser, deleteUser, findUser , updateCompany, updateSmall, updateWare}
