@@ -32,7 +32,8 @@ const addProfile = () => {
 }
 
 const getCompanies = (compArray, container) => {
-    const bigCompany = document.getElementsByClassName('bigCompany')
+    const bigCompany = document.getElementById('bigCompany')
+    console.log('this s THE BIG COMPANY', bigCompany)
     if(compArray.length !== 0){
         for(comp of compArray){
             bigCompany.value = comp.name
