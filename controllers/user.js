@@ -142,4 +142,54 @@ const updateWare = async () => {
             console.error(`${err}: ${err.message}`)
     }
 }
-module.exports = { authUser, createUser, updateUser, deleteUser, findUser , updateCompany, updateSmall, updateWare}
+
+
+
+
+
+
+
+
+
+/******************************************************/
+//Item
+/******************************************************/
+
+const createItem = async () => {
+    try{
+        await mongoose.connect(process.env.SSP1_URL);
+        console.log('Connection to Atlas Successful!')
+        mongoose.connection.close();
+    }catch(err){
+        mongoose.connection.close();
+            console.error(`${err}: ${err.message}`)
+    }
+}
+
+const updateItem = async () => {
+    try{
+        await mongoose.connect(process.env.SSP1_URL);
+        console.log('Connection to Atlas Successful!')
+        mongoose.connection.close();
+    }catch(err){
+        mongoose.connection.close();
+            console.error(`${err}: ${err.message}`)
+    }
+}
+
+const deleteItem = async () => {
+    try{
+        await mongoose.connect(process.env.SSP1_URL);
+        console.log('Connection to Atlas Successful!')
+        mongoose.connection.close();
+    }catch(err){
+        mongoose.connection.close();
+            console.error(`${err}: ${err.message}`)
+    }
+}
+
+
+
+
+
+module.exports = { authUser, createUser, updateUser, deleteUser, findUser , updateCompany, updateSmall, updateWare, createItem, updateItem, deleteItem}

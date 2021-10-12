@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { resolve } = require('path')
 require('dotenv').config();
-const { createUser, updateUser, deleteUser, findUser, updateCompany, updateSmall, updateWare } = require('../../controllers/user.js');
+const { createUser, updateUser, deleteUser, findUser, updateCompany, updateSmall, updateWare , createItem, updateItem, deleteItem} = require('../../controllers/user.js');
 
 router.get('/', async (req, res) => {
     try{
