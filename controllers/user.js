@@ -77,7 +77,7 @@ const findUser = async (username) => {
 //Company
 /******************************************************/
 
-const updateCompany = async ({ currentUser ,companyName, state }) => {
+const createCompany = async ({ currentUser ,companyName, state }) => {
     try{
         await mongoose.connect(process.env.SSP1_URL);
         const user = await User.findOneAndUpdate({username: currentUser}, { $push: {company: {name: companyName, state: state}}})
@@ -101,7 +101,7 @@ const updateCompany = async ({ currentUser ,companyName, state }) => {
 //Small Company
 /******************************************************/
 
-const updateSmall = async ({ bigCompany, smallCompany, state, currentUser}) => {
+const createSmall = async ({ bigCompany, smallCompany, state, currentUser}) => {
     try{
         console.log(smallCompany, state, currentUser, 'INSIDE THE SMALL UPDATE')
         await mongoose.connect(process.env.SSP1_URL);
@@ -132,7 +132,7 @@ const updateSmall = async ({ bigCompany, smallCompany, state, currentUser}) => {
 //Warehouse
 /******************************************************/
 
-const updateWare = async () => {
+const createWare = async () => {
     try{
         await mongoose.connect(process.env.SSP1_URL);
         console.log('Connection to Atlas Successful!')
@@ -192,4 +192,8 @@ const deleteItem = async () => {
 
 
 
-module.exports = { authUser, createUser, updateUser, deleteUser, findUser , updateCompany, updateSmall, updateWare, createItem, updateItem, deleteItem}
+module.exports = { authUser, createUser, updateUser, deleteUser, findUser , 
+                createCompany, 
+                createSmall, 
+                createWare, 
+                createItem, updateItem, deleteItem}
