@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { resolve } = require('path')
 require('dotenv').config();
-const { createUser, updateUser, deleteUser, findUser, updateCompany, updateSmall, updateWare , createItem, updateItem, deleteItem} = require('../../controllers/user.js');
+const { createUser, updateUser, deleteUser, findUser,createCompany,createSmall,createWare , createItem, updateItem, deleteItem} = require('../../controllers/user.js');
 
 router.get('/', async (req, res) => {
     try{
@@ -16,13 +16,13 @@ router.post('/', async (req, res) => {
     console.log(req.body, "FORM INFO")
     let currentMethod = null;
     if(req.body.postId === '001'){
-        currentMethod = updateCompany;
+        currentMethod =createCompany;
     }
     else if(req.body.postId === '002'){
-        currentMethod = updateSmall;
+        currentMethod =createSmall;
     }
     else if(req.body.postId === '003'){
-        currentMethod = updateWare;
+        currentMethod =createWare;
     }
     try{
         const user = await currentMethod(req.body);
