@@ -33,23 +33,8 @@
                             <img src='' alt='Profile Image'/>
                             <p id='profile-info'></p>
                         </div>
-                        <div>   
-                            <p>Add Company</p>
-                            <form method='POST', action='/profile'>
-                                <div>
-                                    <label for='companyName'> Company: </label>
-                                    <input type='text' name='companyName'></input>
-                                </div>
-                                <div>
-                                    <label for='state'>State: </label>
-                                    <input type='text' name='state'></input>
-                                </div>
-                                <div>
-                                    <input type='hidden' name="postId" value="001"></input>
-                                    <input class='currentUser' type='hidden' name='currentUser' value="">
-                                    <input type='submit' value='submit'></input>
-                                </div>
-                            </form>
+                        <div id='create-compForm'>   
+                            
                         </div>
                     </div>
                     <div class='cont' id='mn-bd-sec2'>
@@ -61,43 +46,6 @@
         
                             </div>
                         </div>
-                        <div id='warehouse'>
-                            <div>
-                                <p>Add Warehouse</p>
-                                <form method='POST', action='/profile'>
-                                    <div>
-                                        <label for='warehouseName'> Warehouse: </label>
-                                        <input type='text' name='warehouseName'></input>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for='state'>State: </label>
-                                        <input type='text' name='state'></input>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for='city'> City: </label>
-                                        <input type='text' name='city'></input>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for='wareCapacity'>Capacity: </label>
-                                        <input type='text' name='wareCapacity'></input>
-                                    </div>
-                                    
-                                    <div>
-                                        <input type='hidden' name='wareQuantity' value='0'></input>
-                                        <input type='hidden' name='wareLimit' value='0'></input>
-                                        <input type='hidden' name="postId" value="003"></input>
-                                        <input id='wareBigCompany' type='hidden' name='bigCompany' value=''></input>
-                                        <input id='wareSmallComp'type='hidden' name='smallCompany' value=''></input>
-                                        <input class='currentUser' type='hidden' name='currentUser' value="">
-                                        <input type='submit' value='submit'></input>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <footer class='cont' id='footer'> 
