@@ -33,11 +33,35 @@ const userSchema = new Schema ({
                     state: String,
                     city: String,
                     inventory: [{
-                        item: String
+                        item: String,
+                        description: String
                     }],
-                    quantity: Number,
-                    capacity: Number,
-                    limit: Boolean
+                    quantity: {
+                        type: Number,
+                        min: [0, 'Need to be greater than 0.'],
+                        max: this.capacity,
+                        validate: {
+                            validator: function(){
+                                return this.quantity <= this.capacity  
+                            },
+                            message: "Exceeds your warehouse Capacity."
+                        }
+                    },
+                    capacity: {
+                        type: Number,
+                        min: [0, 'Need to be greater than 0.']
+                    },
+                    limit: {
+                        type: Boolean,
+                        validate: {validator: function(){
+                            if(this.quantity == this.capacity){
+                                this.limit = true
+                            }
+                            else{
+                                this.limit = false
+                            }
+                        }}
+                    }
                 }]
         }]
     }]

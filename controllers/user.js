@@ -102,8 +102,8 @@ const createCompany = async ({ currentUser ,companyName, state }) => {
 /******************************************************/
 
 const createSmall = async ({ bigCompany, smallCompany, state, currentUser}) => {
+    
     try{
-        console.log(smallCompany, state, currentUser, 'INSIDE THE SMALL UPDATE')
         await mongoose.connect(process.env.SSP1_URL);
         const user = await User.findOneAndUpdate(
             {username: currentUser},
@@ -124,18 +124,26 @@ const createSmall = async ({ bigCompany, smallCompany, state, currentUser}) => {
 
 
 
-
-
-
-
 /******************************************************/
 //Warehouse
 /******************************************************/
 
-const createWare = async () => {
+const createWare = async ({warehouseName, state, city, wareCapacity, wareQuantity, wareLimit, bigCompany, smallCompany, currentUser}) => {
+    
     try{
         await mongoose.connect(process.env.SSP1_URL);
-        console.log('Connection to Atlas Successful!')
+        const user = await User.findOneAndUpdate(
+            {username: currentUser},
+            { $push: {'company.$[elem1].smallComp.$[elem2].warehouse': {name: warehouseName,
+                                                                        state: state,
+                                                                        city: city,
+                                                                        capacity: wareCapacity,
+                                                                        quantity: wareQuantity,
+                                                                        limit: wareLimit,}}},
+            { arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}]}
+            )
+        
+        console.log(user, 'Connection to Atlas Successful!')
         mongoose.connection.close();
     }catch(err){
         mongoose.connection.close();
@@ -155,9 +163,20 @@ const createWare = async () => {
 //Item
 /******************************************************/
 
-const createItem = async () => {
+const createItem = async ({itemName, itemDescription, bigCompany, smallCompany, warehouse, currentUser}) => {
+    
     try{
         await mongoose.connect(process.env.SSP1_URL);
+        const user = await User.findOneAndUpdate(
+            {username: currentUser},
+            {
+                $inc: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].quantity': 1},
+                $push: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory': {item: itemName, description: itemDescription}}
+            },
+            {arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}, {"elem3.name": warehouse}]}
+            )
+        console.log(user, 'THIS WS THEE RESPONSE')
+        if(user == null) throw `User unable to update.`
         console.log('Connection to Atlas Successful!')
         mongoose.connection.close();
     }catch(err){
