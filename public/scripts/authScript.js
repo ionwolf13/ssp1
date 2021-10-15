@@ -397,7 +397,7 @@ const yeNo = (e, method) => {
         updateHTTPItem(e.target)
     }
     else{
-        deleteHTTPItem(e.target)
+        deleteHTTPItem(e)
     }
     
 }
@@ -413,42 +413,30 @@ const updateHTTPItem = (e) => {
     xhr.onload = function() {
         const users = JSON.parse(xhr.response);
     }
-    xhr.open('PUT', `/`)
      
-     xhr.open('PUT', `http://localhost:8085/profile/${dataArr[0]}/${dataArr[1]}/${dataArr[2]}/${dataArr[3]}/${dataArr[4]}/${dataArr[5]}/${dataArr[6]}/${dataArr[7]}`)
+    xhr.open('PUT', `http://localhost:8085/profile/${dataArr[0]}/${dataArr[1]}/${dataArr[2]}/${dataArr[3]}/${dataArr[4]}/${dataArr[5]}/${dataArr[6]}/${dataArr[7]}`)
      
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send(JSON.stringify({test: dataArr[0]}))
+    xhr.send()
 }
 
-const handleDeleteItemButton = (count) => {
+const handleDeleteItemButton = (count, bigCompany, smallCompany, warehouse, item) => {
     const button = document.getElementById(`bttn-dltItemComp-${count}`)
     const container = document.getElementById(`delete-ItemForm-${count}`)
-    const p = document.createElement('p')
-    p.innerHTML = 'DELETE ME'
-    let show = false;
     button.addEventListener('click', () => {
-        show = !show
-        if(show === false){
-            container.innerHTML = ""  
-        }
-        else{
-            container.appendChild(div)
-            let form = document.getElementById(`update-Item-${count}`)
-            
-            form.addEventListener('submit', (e) => {
-                yeNo(e, "delete")
-            }) 
-                
-        }
+        let form = [localStorage.currentUser, bigCompany, smallCompany, warehouse.name, item, '004']
+        yeNo(form,"delete")
     })
     
 }
 
-const deleteHTTPItem = () => {
-    const xhr = XMLHttpRequest();
-    xhr.open('DELETE', '/profile');
-    xhr.onload();
+const deleteHTTPItem = (dataArr) => {
+    console.log(dataArr, "HERE")
+    const xhr = new XMLHttpRequest();
+    xhr.open('DELETE', `http://localhost:8085/profile/${dataArr[0]}/${dataArr[1]}/${dataArr[2]}/${dataArr[3]}/${dataArr[4]}/${dataArr[5]}`);
+    xhr.onload = function() {
+
+    }
     xhr.send();
 }
 

@@ -191,7 +191,6 @@ const updateItem = async ({itemName, itemDescription, bigCompany, smallCompany, 
             {username: currentUser},
             {
                 $set: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory.$[elem4]': {item: itemName, description: itemDescription}}
-                // $set: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory.$[elem4].description': itemDescription}
             },
                 {arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}, {"elem3.name": warehouse}, {"elem4._id": item}]}
         )
@@ -205,9 +204,17 @@ const updateItem = async ({itemName, itemDescription, bigCompany, smallCompany, 
     }
 }
 
-const deleteItem = async () => {
+const deleteItem = async ({currentUser, bigCompany, smallCompany, warehouse, item}) => {
     try{
         await mongoose.connect(process.env.SSP1_URL);
+        const user = await User.findOneAndUpdate(
+            {username: currentUser},
+            {
+                $inc:{'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].quantity': -1},
+                $pull: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory':  {_id: item}}
+            },
+                {arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}, {"elem3.name": warehouse}]}
+        )
         console.log('Connection to Atlas Successful!')
         mongoose.connection.close();
     }catch(err){
