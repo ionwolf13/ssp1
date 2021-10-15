@@ -1,6 +1,7 @@
 const addProfile = () => {
     const xhr = new XMLHttpRequest();
     console.log(localStorage)
+    
     xhr.onload = function() {
         const users = JSON.parse(xhr.response);
         const header = document.getElementById('profile-hdr')
@@ -190,7 +191,6 @@ const getInventory = (bigCompany, smallCompany, warehouse, inventoryContainer) =
     if(warehouse.inventory.length !== 0){
         let count = 0;
         for(item of warehouse.inventory){
-            console.log(item, 'THIS BE THE ITEM')
                 const div = document.createElement('div')
                 div.innerHTML = `
                     <h3> Item: ${item.item} </h3>
@@ -209,8 +209,8 @@ const getInventory = (bigCompany, smallCompany, warehouse, inventoryContainer) =
                     </div>
                 `
             inventoryContainer.appendChild(div)
-            handleUpdateItemButton(count)
-            handleDeleteItemButton(count)
+            handleUpdateItemButton(count, bigCompany, smallCompany, warehouse, item._id)
+            handleDeleteItemButton(count, bigCompany, smallCompany, warehouse, item._id)
             count++
         }
         
@@ -343,15 +343,36 @@ const addSmallCompanyButton = (bigCompany, currentUser) => {
 
 /************************************************************************************************
  * 
- * * Handle Button Functions
+ * * Handle Button Inventory Functions
  * 
  ************************************************************************************************/
 
- const handleUpdateItemButton = (count) => {
+ const handleUpdateItemButton = (count, bigCompany, smallCompany, warehouse, item) => {
     const button = document.getElementById(`bttn-updateItemComp-${count}`)
     const container = document.getElementById(`update-ItemForm-${count}`)
-    const p = document.createElement('p')
-    p.innerHTML = 'UPDATE ME'
+    const div = document.createElement('div')
+    
+    div.innerHTML = `
+    <form id='update-Item-${count}' method='PUT', action='/profile'>
+        <div>
+            <label for='itemName'> Item: </label>
+            <input type='text' name='itemName'></input>
+        </div>
+        <div>
+            <label for='itemDescription'>Description: </label>
+            <input type='text' name='itemDescription'></input>
+        </div>
+        <div>
+            <input type='hidden' name="postId" value="004"></input>
+            <input id='bigCompany'  type='hidden' name='bigCompany'  value="${bigCompany}">
+            <input id='bigCompany'  type='hidden' name='smallCompany'  value="${smallCompany}">
+            <input id='bigCompany'  type='hidden' name='warehouse'  value="${warehouse.name}">
+            <input id='bigCompany'  type='hidden' name='item'  value="${item}">
+            <input class='currentUser' type='hidden' name='currentUser' value="${localStorage.currentUser}">
+            <input type='submit' value='submit'></input>
+        </div>
+    </form>
+    `
     let show = false;
     button.addEventListener('click', () => {
         show = !show
@@ -359,11 +380,47 @@ const addSmallCompanyButton = (bigCompany, currentUser) => {
             container.innerHTML = ""  
         }
         else{
-            container.appendChild(p)
+            container.appendChild(div)
+            let form = document.getElementById(`update-Item-${count}`)
+            
+            form.addEventListener('submit', (e) => {
+                yeNo(e, "update")
+            }) 
+                
         }
     })
+}
+
+
+const yeNo = (e, method) => {
+    if(method === 'update'){
+        updateHTTPItem(e.target)
+    }
+    else{
+        deleteHTTPItem(e.target)
+    }
     
 }
+
+
+const updateHTTPItem = (e) => {
+    let data = new FormData(e)
+    const dataArr = []
+    for (var value of data.values()) {
+        dataArr.push(value)
+     }
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        const users = JSON.parse(xhr.response);
+    }
+    xhr.open('PUT', `/`)
+     
+     xhr.open('PUT', `http://localhost:8085/profile/${dataArr[0]}/${dataArr[1]}/${dataArr[2]}/${dataArr[3]}/${dataArr[4]}/${dataArr[5]}/${dataArr[6]}/${dataArr[7]}`)
+     
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(JSON.stringify({test: dataArr[0]}))
+}
+
 const handleDeleteItemButton = (count) => {
     const button = document.getElementById(`bttn-dltItemComp-${count}`)
     const container = document.getElementById(`delete-ItemForm-${count}`)
@@ -376,11 +433,32 @@ const handleDeleteItemButton = (count) => {
             container.innerHTML = ""  
         }
         else{
-            container.appendChild(p)
+            container.appendChild(div)
+            let form = document.getElementById(`update-Item-${count}`)
+            
+            form.addEventListener('submit', (e) => {
+                yeNo(e, "delete")
+            }) 
+                
         }
     })
     
 }
+
+const deleteHTTPItem = () => {
+    const xhr = XMLHttpRequest();
+    xhr.open('DELETE', '/profile');
+    xhr.onload();
+    xhr.send();
+}
+
+
+
+/************************************************************************************************
+ * 
+ * * Handle Button Small Company Functions
+ * 
+ ************************************************************************************************/
 
 
 const handleUpdateButton = () => {
@@ -462,6 +540,7 @@ const smallHandleDeleteButton = () => {
 
 window.addEventListener('DOMContentLoaded', () => {
     addProfile();
+    // console.log(window.location.assign('http://localhost:8085/profile'))
     const logout = document.getElementById('logout-link')
     const hidden = document.getElementsByClassName('currentUser')
     logout.addEventListener('click', () => {

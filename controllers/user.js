@@ -173,9 +173,8 @@ const createItem = async ({itemName, itemDescription, bigCompany, smallCompany, 
                 $inc: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].quantity': 1},
                 $push: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory': {item: itemName, description: itemDescription}}
             },
-            {arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}, {"elem3.name": warehouse}]}
+                {arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}, {"elem3.name": warehouse}]}
             )
-        console.log(user, 'THIS WS THEE RESPONSE')
         if(user == null) throw `User unable to update.`
         console.log('Connection to Atlas Successful!')
         mongoose.connection.close();
@@ -185,14 +184,24 @@ const createItem = async ({itemName, itemDescription, bigCompany, smallCompany, 
     }
 }
 
-const updateItem = async () => {
+const updateItem = async ({itemName, itemDescription, bigCompany, smallCompany, warehouse, item, currentUser}) => {
     try{
         await mongoose.connect(process.env.SSP1_URL);
+        const user = await User.findOneAndUpdate(
+            {username: currentUser},
+            {
+                $set: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory.$[elem4]': {item: itemName, description: itemDescription}}
+                // $set: {'company.$[elem1].smallComp.$[elem2].warehouse.$[elem3].inventory.$[elem4].description': itemDescription}
+            },
+                {arrayFilters: [{"elem1.name": bigCompany}, { "elem2.name": smallCompany}, {"elem3.name": warehouse}, {"elem4._id": item}]}
+        )
+        if(user == null) throw `User unable to update.`
+        console.log(user, 'THIS BE THE RESPONSE')
         console.log('Connection to Atlas Successful!')
         mongoose.connection.close();
     }catch(err){
         mongoose.connection.close();
-            console.error(`${err}: ${err.message}`)
+        console.error(`${err}: ${err.message}`)
     }
 }
 
